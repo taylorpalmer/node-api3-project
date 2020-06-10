@@ -1,20 +1,24 @@
-const express = require('express');
+const express = require("express");
+const server = require("../server");
+const validateUser = require("../middleware/validateUser");
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+server.use(validateUser);
+
+router.get("/", (req, res) => {
   // do your magic!
 });
 
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
   // do your magic!
 });
 
-router.delete('/:id', (req, res) => {
+router.delete("/:id", (req, res) => {
   // do your magic!
 });
 
-router.put('/:id', (req, res) => {
+router.put("/:id", (req, res) => {
   // do your magic!
 });
 
