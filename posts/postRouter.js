@@ -1,10 +1,14 @@
 const express = require("express");
 const server = require("../server");
 const validateUser = require("../middleware/validateUser");
+const validateUserId = require("../middleware/validateUserId");
+const validatePost = require("../middleware/validatePost");
 
 const router = express.Router();
 
 server.use(validateUser);
+server.use(validateUserId);
+server.use(validatePost);
 
 router.get("/", (req, res) => {
   // do your magic!
