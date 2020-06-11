@@ -1,5 +1,7 @@
 const express = require("express");
 const server = require("../server");
+const users = require("../users/userDb");
+
 const validateUser = require("../middleware/validateUser");
 const validateUserId = require("../middleware/validateUserId");
 const validatePost = require("../middleware/validatePost");
