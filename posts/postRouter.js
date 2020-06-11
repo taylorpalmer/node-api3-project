@@ -26,15 +26,36 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/:id", (req, res, next) => {
-  // do your magic!
+  posts
+    .getById(req.params.id)
+    .then((posts) => {
+      res.status(200).json(posts);
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
 router.delete("/:id", (req, res, next) => {
-  // do your magic!
+  posts
+    .remove(req.params.id)
+    .then((posts) => {
+      res.status(200).json(posts);
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
 router.put("/:id", (req, res, next) => {
-  // do your magic!
+  posts
+    .update(req.params.id, req.body.text)
+    .then((posts) => {
+      res.status(200).json(posts);
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
 // custom middleware
