@@ -6,13 +6,11 @@ module.exports = (format) => {
         break;
       case "long":
       default:
-        // gives us the date and time without a timezone
         const time = new Date().toISOString();
-        // log out some info about this request
+
         console.log(`[${time}] ${req.ip} ${req.method} ${req.url}`);
     }
 
-    // move on to the next piece of middleware, we are done here
     next();
   };
 };
