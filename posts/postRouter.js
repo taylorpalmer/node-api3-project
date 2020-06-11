@@ -49,7 +49,7 @@ router.delete("/:id", (req, res, next) => {
 
 router.put("/:id", (req, res, next) => {
   posts
-    .update(req.params.id, req.body.text)
+    .update(req.params.id, req.body)
     .then((posts) => {
       res.status(200).json(posts);
     })
