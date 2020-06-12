@@ -27,7 +27,7 @@ router.post(
   }
 );
 
-router.get("/", middleware.validateUser, (req, res, next) => {
+router.get("/", (req, res, next) => {
   users
     .get()
     .then((users) => {
