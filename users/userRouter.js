@@ -38,11 +38,17 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.get("/:id", middleware.validateUserId, (req, res, next) => {
+router.get("/:id", (req, res, next) => {
   users
     .getById(req.params.id)
     .then((user) => {
-      res.status(200).json(user);
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        res.status(404).json({
+          message: "User id doesn't exist.",
+        });
+      }
     })
     .catch((error) => {
       next(error);
