@@ -1,18 +1,7 @@
 const express = require("express");
-const server = require("../server");
 const posts = require("../posts/postDb");
-const error = require("../middleware/error");
-
-const validateUser = require("../middleware/validateUser");
-const validateUserId = require("../middleware/validateUserId");
-const validatePost = require("../middleware/validatePost");
 
 const router = express.Router();
-
-server.use(validateUser);
-server.use(validateUserId);
-server.use(validatePost);
-server.use(error);
 
 router.get("/", (req, res, next) => {
   posts
@@ -36,7 +25,7 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", validatePost, (req, res, next) => {
   posts
     .remove(req.params.id)
     .then((posts) => {
@@ -47,7 +36,7 @@ router.delete("/:id", (req, res, next) => {
     });
 });
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", validatePost, (req, res, next) => {
   posts
     .update(req.params.id, req.body)
     .then((posts) => {
@@ -59,6 +48,19 @@ router.put("/:id", (req, res, next) => {
 });
 
 // custom middleware
+function validatePost(req, res, next) {
+  if (!req.body) {
+    res.status(400).json({
+      message: "missing post data",
+    });
+  } else if (!req.body.text) {
+    res.status(400).json({
+      message: "missing required text field",
+    });
+  }
+
+  next();
+}
 
 function validatePostId(req, res, next) {
   // do your magic!
